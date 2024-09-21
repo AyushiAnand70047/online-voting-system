@@ -20,7 +20,7 @@ input, #dropbox{
     width: 12.5%;
 }
 
-#loginbutton{
+button{
     padding: 7px;
     border-radius: 5px;
     background-color: rgb(75, 75, 145);
