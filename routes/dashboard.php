@@ -7,7 +7,7 @@ if (!isset($_SESSION['userdata'])) {
 $userdata = $_SESSION['userdata'];
 $groupsdata = $_SESSION['groupsdata'];
 
-if($userdata['status'] == 0){
+if($_SESSION['userdata']['status'] == 0){
     $status = '<b style="color: red">Not Voted</b>';
 }
 else{
@@ -41,8 +41,8 @@ else{
         <div id="mainSection">
             <center>
                 <div id="headersection">
-                    <button style="float: left;">Back</button>
-                    <button style="float: right;">Logout</button>
+                    <a href="../"><button style="float: left; margin: 10px;">Back</button></a>
+                    <a href="logout.php"><button style="float: right; margin: 10px">Logout</button></a>
                     <br>
                     <h1>Online Voting System</h1>
                 </div>
@@ -68,17 +68,27 @@ else{
                         <img style="float: right;" src="../uploads/<?php echo $groupsdata[$i]['photo']?>" height="100" width="100"><br/><br/>
                         <b>Group Name: </b> <?php echo $groupsdata[$i]['name']?><br/><br/>
                         <b>Votes: </b><?php echo $groupsdata[$i]['votes']?><br/><br/>
-                        <form action="#" method="POST">
+                        <form action="../api/vote.php" method="POST">
                             <input type="hidden" name="gvotes" value="<?php echo $groupsdata[$i]['votes']?>">
-                            <button name="votebtn" id="votebtn">Vote</button>
+                            <input type="hidden" name="gid" value="<?php echo $groupsdata[$i]['id']?>">
+                            <?php
+                            if($_SESSION['userdata']['status'] == 0){
+                                ?>
+                                <button name="votebtn" id="votebtn">Vote</button>
+                                <?php
+                            }
+                            else{
+                                ?>
+                                <button name="votebtn" id="votebtn" style="cursor: not-allowed; background-color: green" disabled>Voted</button>
+                                <?php
+                            }
+                            ?>
+                            
                         </form>
                         <hr/>
                     </b>
                 <?php
                     }
-                }
-                else{
-
                 }
                 ?>
             </div>
